@@ -19,7 +19,7 @@ class MaxRectsBinPack
 {
 public:
 	/// Instantiates a bin of size (0,0). Call Init to create a new bin.
-	MaxRectsBinPack();
+	MaxRectsBinPack() = default;
 
 	/// Instantiates a bin of the given size.
 	/// @param allowFlip Specifies whether the packing algorithm is allowed to rotate the input rectangles by 90 degrees to consider a better placement.
@@ -52,10 +52,9 @@ public:
 	float Occupancy() const;
 
 private:
-	int binWidth;
-	int binHeight;
-
-	bool binAllowFlip;
+	int binWidth = 0;
+	int binHeight = 0;
+	bool binAllowFlip = true;
 
 	std::vector<Rect> usedRectangles;
 	std::vector<Rect> freeRectangles;

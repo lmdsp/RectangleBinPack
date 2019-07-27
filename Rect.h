@@ -44,7 +44,7 @@ int CompareRectShortSide(const Rect &a, const Rect &b);
 int NodeSortCmp(const Rect &a, const Rect &b);
 
 /// Returns true if a is contained in b.
-bool IsContainedIn(const Rect &a, const Rect &b);
+bool IsContainedIn(const Rect &a, const Rect &b) noexcept;
 
 class DisjointRectCollection
 {
@@ -60,33 +60,38 @@ public:
 		if (!Disjoint(r))
 			return false;
 		rects.push_back(r);
+
 		return true;
 	}
 
-	void Clear()
+	void Clear() noexcept
 	{
 		rects.clear();
 	}
 
-	bool Disjoint(const Rect &r) const
+	bool Disjoint(const Rect &r) const noexcept
 	{
 		// Degenerate rectangles are ignored.
 		if (r.width == 0 || r.height == 0)
 			return true;
 
-		for(size_t i = 0; i < rects.size(); ++i)
+		for (size_t i = 0; i < rects.size(); ++i)
+		{
 			if (!Disjoint(rects[i], r))
 				return false;
+		}
+
 		return true;
 	}
 
-	static bool Disjoint(const Rect &a, const Rect &b)
+	static bool Disjoint(const Rect &a, const Rect &b) noexcept
 	{
 		if (a.x + a.width <= b.x ||
 			b.x + b.width <= a.x ||
 			a.y + a.height <= b.y ||
 			b.y + b.height <= a.y)
 			return true;
+
 		return false;
 	}
 };

@@ -41,7 +41,7 @@ int NodeSortCmp(const Rect &a, const Rect &b)
 	return clb::sort::TriCmp(a.height, b.height);
 }
 */
-bool IsContainedIn(const Rect &a, const Rect &b)
+bool IsContainedIn(const Rect &a, const Rect &b) noexcept
 {
 	return a.x >= b.x && a.y >= b.y 
 		&& a.x+a.width <= b.x+b.width 
